@@ -1,7 +1,7 @@
 import { addBlock, addAIDraft, addLesson, addPdfDraft, addSection, addSlideEmbed, createCourse, duplicateBlock, generateCover, isImageFile, lessonOverview, moveBlock, removeBlock, toGoogleSlidesEmbedUrl, toIframeSrc, updateBlock } from './model.js';
 import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
 import { renderCourseHtml } from './export-html.js?v=20261016-image-filter';
-import { previewDocument } from './preview-document.js?v=20261016-exact-preview';
+import { previewDocument } from './preview-document.js?v=20261016-navigation';
 import { createFlipbookCanvas } from './flipbook.js';
 import { brandTokens, subtitleTokens, themeTokens } from './theme.js';
 

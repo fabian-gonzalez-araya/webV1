@@ -134,6 +134,9 @@ test('exports a standalone HTML lesson with navigation', () => {
   assert.match(html, /--cover-filter:#18322bf5/);
   assert.match(html, /--image-filter:#18322bf5/);
   assert.match(html, /banner\.jpg/);
+  assert.match(html, /class="lesson-nav-item active"/);
+  assert.match(html, /class="lesson-nav-number">1<\/span>/);
+  assert.match(html, /class="lesson-nav-count">2<\/span>/);
   assert.match(html, /function showUnit/);
   assert.match(html, /lesson-unit\[hidden\]/);
   assert.match(html, /Bienvenida/);
