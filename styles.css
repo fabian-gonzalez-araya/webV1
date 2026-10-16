@@ -45,7 +45,7 @@ button { cursor:pointer; }
 .quote input { border:0; outline:0; color:var(--muted); font-size:12px; width:100%; margin-top:8px; }
 .image-drop { border:1.5px dashed #b8c5bb; min-height:158px; background:#f7f8f3; border-radius:7px; display:grid; place-items:center; text-align:center; color:var(--muted); padding:22px; }
 .image-drop strong { display:block; color:var(--ink); margin-bottom:6px; } .image-url { width:100%; border:0; border-bottom:1px solid var(--line); padding:9px 0; outline:0; background:transparent; margin-top:12px; }
-.image-preview { width:100%; max-height:340px; object-fit:cover; border-radius:7px; display:block; }
+.image-preview { width:100%; max-height:340px; object-fit:cover; display:block; }.image-visual{position:relative;overflow:hidden;border-radius:7px}.image-visual:after,.media-layout-image.has-image:after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--image-filter) 0%,transparent 74%);pointer-events:none}.media-layout-image.has-image{position:relative;overflow:hidden}
 .caption { border:0; width:100%; outline:0; padding-top:10px; color:var(--muted); background:transparent; font-size:12px; }
 .divider { height:1px; background:var(--line); margin:12px 0; }
 .knowledge { background:var(--moss); border-radius:8px; padding:22px; } .knowledge-label { color:#416151; font:500 10px 'DM Mono',monospace; letter-spacing:.13em; text-transform:uppercase; margin-bottom:10px; }

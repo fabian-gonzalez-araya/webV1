@@ -130,7 +130,8 @@ test('exports a standalone HTML lesson with navigation', () => {
   assert.match(html, /show-cover/);
   assert.match(html, /class="unit-banner"/);
   assert.match(html, /\.unit-banner\{[^}]*border-radius:0/);
-  assert.match(html, /--cover-filter:#18322bcc/);
+  assert.match(html, /--cover-filter:#18322bf5/);
+  assert.match(html, /--image-filter:#18322bf5/);
   assert.match(html, /banner\.jpg/);
   assert.match(html, /function showUnit/);
   assert.match(html, /lesson-unit\[hidden\]/);
