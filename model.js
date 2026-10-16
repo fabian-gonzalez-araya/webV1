@@ -77,6 +77,15 @@ export function addLesson(course, title = '') {
   };
 }
 
+export function lessonOverview(course) {
+  return course.lessons.map((lesson, index) => ({
+    id: lesson.id,
+    number: index + 1,
+    title: lesson.title,
+    blockCount: lesson.blocks.length,
+  }));
+}
+
 export function generateCover(course) {
   return { ...course, cover: { ...(course.cover || {}), enabled: true, eyebrow: course.cover?.eyebrow || 'Curso autoguiado', label: course.cover?.label || 'Comenzar la lección', image: course.cover?.image || '' }, updatedAt: new Date().toISOString() };
 }

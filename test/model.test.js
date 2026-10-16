@@ -14,6 +14,7 @@ import {
   isImageFile,
   addPdfDraft,
   addSlideEmbed,
+  lessonOverview,
   toGoogleSlidesEmbedUrl,
   toIframeSrc,
 } from '../model.js';
@@ -33,6 +34,15 @@ test('adds a separate lesson with its own starter section', () => {
   assert.equal(course.lessons.length, 2);
   assert.equal(course.lessons[1].title, 'Aplicación práctica');
   assert.equal(course.lessons[1].blocks[0].level, 'h1');
+});
+
+test('summarizes lessons for a navigable unit view', () => {
+  const course = addLesson(createCourse('Curso'), 'Aplicación práctica');
+
+  assert.deepEqual(lessonOverview(course), [
+    { id: course.lessons[0].id, number: 1, title: 'Lección 1', blockCount: 1 },
+    { id: course.lessons[1].id, number: 2, title: 'Aplicación práctica', blockCount: 1 },
+  ]);
 });
 
 test('adds content to the requested lesson without changing another lesson', () => {
