@@ -172,6 +172,7 @@ test('exports an image-and-text layout as standalone HTML', () => {
   assert.match(html, /media-layout/);
   assert.match(html, /Título 1/);
   assert.match(html, /Título 2/);
+  assert.match(html, /\.layout-media-(?:pair|trio|four) \.media-image\{aspect-ratio:4\/3/);
 });
 
 test('creates a safe iframe source from an embed snippet or URL', () => {
