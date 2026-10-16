@@ -26,6 +26,7 @@ const templates = {
   attachment: () => ({ type: 'attachment', title: 'Material descargable', description: 'Documento o guía para profundizar.', url: '' }),
   pdf: () => ({ type: 'pdf', name: '' }),
   flipbook: () => ({ type: 'flipbook', name: '', pdfData: '', page: 1 }),
+  flashcards: () => ({ type: 'flashcards', title: 'Tarjetas de repaso', cards: [{ front: 'Pregunta o concepto', back: 'Respuesta o explicación' }] }),
   googleSlides: () => ({ type: 'google-slides', url: '' }),
 };
 

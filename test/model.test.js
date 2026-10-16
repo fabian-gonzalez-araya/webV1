@@ -134,6 +134,15 @@ test('creates a flipbook block ready for a local PDF', () => {
   assert.deepEqual({ type: block.type, pdfData: block.pdfData, page: block.page }, { type: 'flipbook', pdfData: '', page: 1 });
 });
 
+test('creates an editable flashcard interaction with a prompt and answer', () => {
+  const course = addBlock(createCourse('Curso'), 'flashcards');
+  const block = course.lessons[0].blocks.at(-1);
+
+  assert.equal(block.type, 'flashcards');
+  assert.equal(block.title, 'Tarjetas de repaso');
+  assert.deepEqual(block.cards, [{ front: 'Pregunta o concepto', back: 'Respuesta o explicación' }]);
+});
+
 test('creates a safe iframe source from an embed snippet or URL', () => {
   assert.equal(toIframeSrc('<iframe src="https://example.org/player" width="800"></iframe>'), 'https://example.org/player');
   assert.equal(toIframeSrc('https://example.org/resource'), 'https://example.org/resource');
