@@ -19,6 +19,7 @@ import {
   toIframeSrc,
 } from '../model.js';
 import { renderCourseHtml } from '../export-html.js';
+import { previewDocument } from '../preview-document.js';
 
 test('creates a course with one lesson and a heading block', () => {
   const course = createCourse('Curso sin título');
@@ -163,6 +164,11 @@ test('creates six editable image-and-text layout templates', () => {
   assert.deepEqual(blocks.map(block => block.type), Array(6).fill('media-layout'));
   assert.deepEqual(blocks.map(block => block.layout), layouts);
   assert.ok(blocks.every(block => block.items.length >= 1));
+});
+
+test('uses the exported HTML as the exact preview document', () => {
+  const course = addBlock(createCourse('Curso'), 'media-trio');
+  assert.equal(previewDocument(course), renderCourseHtml(course));
 });
 
 test('exports an image-and-text layout as standalone HTML', () => {

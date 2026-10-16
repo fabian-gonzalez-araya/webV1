@@ -1,6 +1,7 @@
 import { addBlock, addAIDraft, addLesson, addPdfDraft, addSection, addSlideEmbed, createCourse, duplicateBlock, generateCover, isImageFile, lessonOverview, moveBlock, removeBlock, toGoogleSlidesEmbedUrl, toIframeSrc, updateBlock } from './model.js';
 import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
 import { renderCourseHtml } from './export-html.js?v=20261016-image-filter';
+import { previewDocument } from './preview-document.js?v=20261016-exact-preview';
 import { createFlipbookCanvas } from './flipbook.js';
 import { brandTokens, subtitleTokens, themeTokens } from './theme.js';
 
@@ -84,6 +85,10 @@ function unitOverviewView() {
 }
 
 function render() {
+  if (preview) {
+    app.innerHTML = `<main class="exact-preview"><header><strong>Vista previa exacta</strong><button class="btn primary" data-action="preview">Volver a editar</button></header><iframe class="exact-preview-frame" title="Vista previa del recurso exportado" srcdoc="${escape(previewDocument(course))}"></iframe></main><div class="toast" role="status"></div>`;
+    return;
+  }
   const blocks = lesson().blocks.map(blockView).join('');
   const theme = course.theme || 'cobre';
   const colors = themeTokens(theme);
