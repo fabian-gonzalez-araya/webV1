@@ -153,6 +153,26 @@ test('creates an editable flashcard interaction with a prompt and answer', () =>
   assert.deepEqual(block.cards, [{ front: 'Pregunta o concepto', back: 'Respuesta o explicación' }]);
 });
 
+test('creates six editable image-and-text layout templates', () => {
+  const layouts = ['media-left', 'media-pair', 'media-feature', 'media-trio', 'media-list', 'media-four'];
+  let course = createCourse('Curso');
+  for (const layout of layouts) course = addBlock(course, layout);
+
+  const blocks = course.lessons[0].blocks.slice(1);
+  assert.deepEqual(blocks.map(block => block.type), Array(6).fill('media-layout'));
+  assert.deepEqual(blocks.map(block => block.layout), layouts);
+  assert.ok(blocks.every(block => block.items.length >= 1));
+});
+
+test('exports an image-and-text layout as standalone HTML', () => {
+  const course = addBlock(createCourse('Curso'), 'media-pair');
+  const html = renderCourseHtml(course);
+
+  assert.match(html, /media-layout/);
+  assert.match(html, /Título 1/);
+  assert.match(html, /Título 2/);
+});
+
 test('creates a safe iframe source from an embed snippet or URL', () => {
   assert.equal(toIframeSrc('<iframe src="https://example.org/player" width="800"></iframe>'), 'https://example.org/player');
   assert.equal(toIframeSrc('https://example.org/resource'), 'https://example.org/resource');

@@ -5,6 +5,19 @@ function id(prefix) {
   return `${prefix}-${Date.now().toString(36)}-${sequence}`;
 }
 
+function mediaLayout(layout, count) {
+  return {
+    type: 'media-layout',
+    layout,
+    title: 'Bloque de contenido',
+    items: Array.from({ length: count }, (_, index) => ({
+      title: `Título ${index + 1}`,
+      text: 'Agrega una descripción breve para acompañar la imagen.',
+      image: '',
+    })),
+  };
+}
+
 const templates = {
   heading: () => ({ type: 'heading', level: 'h2', content: 'Nuevo bloque de título' }),
   text: () => ({ type: 'text', content: 'Escribe aquí una explicación clara para tus estudiantes.' }),
@@ -27,6 +40,12 @@ const templates = {
   pdf: () => ({ type: 'pdf', name: '' }),
   flipbook: () => ({ type: 'flipbook', name: '', pdfData: '', page: 1 }),
   flashcards: () => ({ type: 'flashcards', title: 'Tarjetas de repaso', cards: [{ front: 'Pregunta o concepto', back: 'Respuesta o explicación' }] }),
+  'media-left': () => mediaLayout('media-left', 1),
+  'media-pair': () => mediaLayout('media-pair', 2),
+  'media-feature': () => mediaLayout('media-feature', 3),
+  'media-trio': () => mediaLayout('media-trio', 3),
+  'media-list': () => mediaLayout('media-list', 3),
+  'media-four': () => mediaLayout('media-four', 4),
   googleSlides: () => ({ type: 'google-slides', url: '' }),
 };
 
