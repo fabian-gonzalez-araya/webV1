@@ -1,0 +1,15 @@
+export const blockLibraryItems = [
+  { type: 'heading', label: 'Título', preview: 'heading', group: 'Contenido' },
+  { type: 'text', label: 'Texto', preview: 'text', group: 'Contenido' },
+  { type: 'callout', label: 'Llamada', preview: 'callout', group: 'Contenido' },
+  { type: 'accordion', label: 'Acordeón', preview: 'accordion', group: 'Contenido' },
+  { type: 'timeline', label: 'Proceso', preview: 'timeline', group: 'Contenido' },
+  { type: 'flashcards', label: 'Tarjetas', preview: 'flashcards', group: 'Interactivo' },
+  { type: 'knowledge', label: 'Pregunta', preview: 'knowledge', group: 'Interactivo' },
+  { type: 'media-left', label: 'Imagen + texto', preview: 'media-left', group: 'Plantillas visuales' },
+  { type: 'media-pair', label: '2 columnas', preview: 'media-pair', group: 'Plantillas visuales' },
+  { type: 'media-feature', label: 'Imagen destacada', preview: 'media-feature', group: 'Plantillas visuales' },
+  { type: 'media-trio', label: '3 tarjetas', preview: 'media-trio', group: 'Plantillas visuales' },
+  { type: 'media-list', label: 'Lista multimedia', preview: 'media-list', group: 'Plantillas visuales' },
+  { type: 'media-four', label: '4 tarjetas', preview: 'media-four', group: 'Plantillas visuales' },
+];

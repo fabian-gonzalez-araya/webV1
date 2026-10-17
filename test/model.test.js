@@ -20,6 +20,7 @@ import {
 } from '../model.js';
 import { renderCourseHtml } from '../export-html.js';
 import { previewDocument } from '../preview-document.js';
+import { blockLibraryItems } from '../block-library.js';
 
 test('creates a course with one lesson and a heading block', () => {
   const course = createCourse('Curso sin título');
@@ -161,6 +162,12 @@ test('creates an editable flashcard interaction with a prompt and answer', () =>
   assert.equal(block.type, 'flashcards');
   assert.equal(block.title, 'Tarjetas de repaso');
   assert.deepEqual(block.cards, [{ front: 'Pregunta o concepto', back: 'Respuesta o explicación' }]);
+});
+
+test('offers block templates with visual previews in the right-side library', () => {
+  assert.ok(blockLibraryItems.some(item => item.type === 'media-left' && item.preview === 'media-left'));
+  assert.ok(blockLibraryItems.some(item => item.type === 'media-trio' && item.preview === 'media-trio'));
+  assert.ok(blockLibraryItems.some(item => item.type === 'knowledge' && item.preview === 'knowledge'));
 });
 
 test('creates six editable image-and-text layout templates', () => {
