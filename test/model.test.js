@@ -16,6 +16,7 @@ import {
   addSlideEmbed,
   lessonOverview,
   toGoogleSlidesEmbedUrl,
+  toYouTubeEmbedUrl,
   toIframeSrc,
 } from '../model.js';
 import { renderCourseHtml } from '../export-html.js';
@@ -152,6 +153,13 @@ test('exports a standalone HTML lesson with navigation', () => {
   assert.match(html, /Contenido para exportar/);
 });
 
+test('exports a YouTube block with its playable embed URL', () => {
+  let course = addBlock(createCourse('Curso'), 'embed');
+  const video = course.lessons[0].blocks.at(-1);
+  course = updateBlock(course, video.id, { url: 'https://youtu.be/AbCd_123-xY' });
+  assert.match(renderCourseHtml(course), /https:\/\/www\.youtube\.com\/embed\/AbCd_123-xY/);
+});
+
 test('creates a flipbook block ready for a local PDF', () => {
   const course = addBlock(createCourse('Curso'), 'flipbook');
   const block = course.lessons[0].blocks.at(-1);
@@ -215,6 +223,12 @@ test('creates a safe iframe source from an embed snippet or URL', () => {
   assert.equal(toIframeSrc('<iframe src="https://example.org/player" width="800"></iframe>'), 'https://example.org/player');
   assert.equal(toIframeSrc('https://example.org/resource'), 'https://example.org/resource');
   assert.equal(toIframeSrc('<iframe src="javascript:alert(1)"></iframe>'), '');
+});
+
+test('converts YouTube share and watch links into playable embeds', () => {
+  assert.equal(toYouTubeEmbedUrl('https://www.youtube.com/watch?v=AbCd_123-xY'), 'https://www.youtube.com/embed/AbCd_123-xY');
+  assert.equal(toYouTubeEmbedUrl('https://youtu.be/AbCd_123-xY?t=42'), 'https://www.youtube.com/embed/AbCd_123-xY');
+  assert.equal(toYouTubeEmbedUrl('https://example.org/video'), '');
 });
 
 test('adds a Google Slides presentation as one navigable block', () => {

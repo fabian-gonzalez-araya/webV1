@@ -34,7 +34,7 @@ const templates = {
   callout: () => ({ type: 'callout', tone: 'tip', title: 'Idea clave', content: 'Resume una idea que el estudiante debe recordar.' }),
   accordion: () => ({ type: 'accordion', title: 'Explora este concepto', content: 'Agrega una explicación, un ejemplo o una instrucción detallada.' }),
   timeline: () => ({ type: 'timeline', steps: ['Primer paso', 'Segundo paso', 'Tercer paso'] }),
-  embed: () => ({ type: 'embed', provider: 'video', url: '', caption: 'Recurso complementario' }),
+  embed: () => ({ type: 'embed', provider: 'youtube', url: '', caption: 'Video de YouTube' }),
   iframe: () => ({ type: 'iframe', embedCode: '', src: '' }),
   attachment: () => ({ type: 'attachment', title: 'Material descargable', description: 'Documento o guía para profundizar.', url: '' }),
   pdf: () => ({ type: 'pdf', name: '' }),
@@ -238,6 +238,21 @@ export function toIframeSrc(value) {
   const match = raw.match(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i);
   const url = match ? match[1].trim() : raw;
   return /^https?:\/\//i.test(url) ? url : '';
+}
+
+export function toYouTubeEmbedUrl(value) {
+  const raw = toIframeSrc(value);
+  if (!raw) return '';
+  try {
+    const url = new URL(raw);
+    const host = url.hostname.toLowerCase().replace(/^www\./, '');
+    let videoId = '';
+    if (host === 'youtu.be') videoId = url.pathname.split('/').filter(Boolean)[0] || '';
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      videoId = url.searchParams.get('v') || (url.pathname.match(/^\/(?:embed|shorts)\/([^/?#]+)/)?.[1] || '');
+    }
+    return /^[A-Za-z0-9_-]{6,}$/.test(videoId) ? `https://www.youtube.com/embed/${videoId}` : '';
+  } catch { return ''; }
 }
 
 export function toGoogleSlidesEmbedUrl(value) {
