@@ -157,7 +157,9 @@ test('exports a YouTube block with its playable embed URL', () => {
   let course = addBlock(createCourse('Curso'), 'embed');
   const video = course.lessons[0].blocks.at(-1);
   course = updateBlock(course, video.id, { url: 'https://youtu.be/AbCd_123-xY' });
-  assert.match(renderCourseHtml(course), /https:\/\/www\.youtube\.com\/embed\/AbCd_123-xY/);
+  const html = renderCourseHtml(course);
+  assert.match(html, /https:\/\/www\.youtube\.com\/embed\/AbCd_123-xY/);
+  assert.match(html, /allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"/);
 });
 
 test('creates a flipbook block ready for a local PDF', () => {

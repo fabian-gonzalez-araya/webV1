@@ -1,7 +1,7 @@
 import { addBlock, addAIDraft, addLesson, addPdfDraft, addSection, addSlideEmbed, createCourse, duplicateBlock, generateCover, isImageFile, lessonOverview, moveBlock, removeBlock, toGoogleSlidesEmbedUrl, toYouTubeEmbedUrl, toIframeSrc, updateBlock } from './model.js?v=20261016-youtube-video';
 import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
-import { renderCourseHtml } from './export-html.js?v=20261016-youtube-video';
-import { previewDocument } from './preview-document.js?v=20261016-youtube-video';
+import { renderCourseHtml } from './export-html.js?v=20261016-youtube-permissions';
+import { previewDocument } from './preview-document.js?v=20261016-youtube-permissions';
 import { blockLibraryItems, blockPickerTop } from './block-library.js?v=20261016-embedded-resources';
 import { createFlipbookCanvas } from './flipbook.js';
 import { brandTokens, subtitleTokens, themeTokens } from './theme.js';
