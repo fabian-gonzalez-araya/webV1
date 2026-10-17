@@ -138,6 +138,8 @@ test('exports a standalone HTML lesson with navigation', () => {
   assert.match(html, /class="lesson-nav-number">1<\/span>/);
   assert.match(html, /class="lesson-nav-count">2<\/span>/);
   assert.match(html, /@keyframes rise-section-enter/);
+  assert.match(html, /animation:rise-section-enter 900ms/);
+  assert.match(html, /function playEntrance\(element\)/);
   assert.match(html, /classList\.add\('is-entering'\)/);
   assert.match(html, /prefers-reduced-motion:reduce/);
   assert.match(html, /function showUnit/);
