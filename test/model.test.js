@@ -20,7 +20,7 @@ import {
 } from '../model.js';
 import { renderCourseHtml } from '../export-html.js';
 import { previewDocument } from '../preview-document.js';
-import { blockLibraryItems } from '../block-library.js';
+import { blockLibraryItems, blockPickerTop } from '../block-library.js';
 
 test('creates a course with one lesson and a heading block', () => {
   const course = createCourse('Curso sin título');
@@ -130,11 +130,14 @@ test('exports a standalone HTML lesson with navigation', () => {
   assert.match(html, /class="resource-content"/);
   assert.match(html, /data-start-resource/);
   assert.match(html, /show-cover/);
-  assert.match(html, /class="unit-banner"/);
+  assert.match(html, /class="unit-banner reveal-on-scroll"/);
   assert.match(html, /\.unit-banner\{[^}]*border-radius:0/);
   assert.match(html, /--cover-filter:#18322bf5/);
   assert.match(html, /--image-filter:#18322bf5/);
   assert.match(html, /banner\.jpg/);
+  assert.match(html, /class="unit-banner reveal-on-scroll"/);
+  assert.match(html, /new IntersectionObserver/);
+  assert.match(html, /\.reveal-on-scroll\.is-visible/);
   assert.match(html, /class="lesson-nav-item active"/);
   assert.match(html, /class="lesson-nav-number">1<\/span>/);
   assert.match(html, /class="lesson-nav-count">2<\/span>/);
@@ -168,6 +171,12 @@ test('offers block templates with visual previews in the right-side library', ()
   assert.ok(blockLibraryItems.some(item => item.type === 'media-left' && item.preview === 'media-left'));
   assert.ok(blockLibraryItems.some(item => item.type === 'media-trio' && item.preview === 'media-trio'));
   assert.ok(blockLibraryItems.some(item => item.type === 'knowledge' && item.preview === 'knowledge'));
+});
+
+test('positions the block library beside the active add-block control', () => {
+  assert.equal(blockPickerTop(320, 900), 320);
+  assert.equal(blockPickerTop(840, 900), 340);
+  assert.equal(blockPickerTop(-10, 900), 16);
 });
 
 test('creates six editable image-and-text layout templates', () => {

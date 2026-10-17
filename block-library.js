@@ -13,3 +13,7 @@ export const blockLibraryItems = [
   { type: 'media-list', label: 'Lista multimedia', preview: 'media-list', group: 'Plantillas visuales' },
   { type: 'media-four', label: '4 tarjetas', preview: 'media-four', group: 'Plantillas visuales' },
 ];
+
+export function blockPickerTop(triggerTop, viewportHeight, pickerHeight = 560) {
+  return Math.max(16, Math.min(triggerTop, viewportHeight - pickerHeight));
+}

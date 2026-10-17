@@ -1,8 +1,8 @@
 import { addBlock, addAIDraft, addLesson, addPdfDraft, addSection, addSlideEmbed, createCourse, duplicateBlock, generateCover, isImageFile, lessonOverview, moveBlock, removeBlock, toGoogleSlidesEmbedUrl, toIframeSrc, updateBlock } from './model.js';
 import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
-import { renderCourseHtml } from './export-html.js?v=20261016-image-filter';
-import { previewDocument } from './preview-document.js?v=20261016-slower-animation';
-import { blockLibraryItems } from './block-library.js?v=20261016-library';
+import { renderCourseHtml } from './export-html.js?v=20261016-scroll-image-reveal';
+import { previewDocument } from './preview-document.js?v=20261016-scroll-image-reveal';
+import { blockLibraryItems, blockPickerTop } from './block-library.js?v=20261016-library';
 import { createFlipbookCanvas } from './flipbook.js';
 import { brandTokens, subtitleTokens, themeTokens } from './theme.js';
 
@@ -13,6 +13,7 @@ let course = JSON.parse(localStorage.getItem(storeKey) || 'null') || createCours
 let preview = false;
 let presentationPage = 'content';
 let menuOpen = false;
+let blockPickerY = 16;
 let activeLessonId = course.lessons[0]?.id;
 const app = document.querySelector('#app');
 const flipbookDocuments = new Map();
@@ -83,7 +84,7 @@ function contentNavigation() {
 function blockLibraryView() {
   if (!menuOpen) return '';
   const groups = [...new Set(blockLibraryItems.map(item => item.group))];
-  return `<section class="block-library" aria-label="Bloques de contenido"><div class="block-library-head"><div><span>Agregar bloque</span><h2>Bloques de contenido</h2></div><button class="icon-btn" data-action="toggle-add" aria-label="Cerrar bloques">×</button></div>${groups.map(group => `<div class="block-library-group"><h3>${group}</h3><div class="block-library-grid">${blockLibraryItems.filter(item => item.group === group).map(item => `<button class="block-library-item" data-add="${item.type}"><span class="block-thumbnail preview-${item.preview}"><i></i><b></b><em></em><small></small></span><strong>${item.label}</strong></button>`).join('')}</div></div>`).join('')}</section>`;
+  return `<section class="block-library" style="--picker-top:${blockPickerY}px" aria-label="Bloques de contenido"><div class="block-library-head"><div><span>Agregar bloque</span><h2>Bloques de contenido</h2></div><button class="icon-btn" data-action="toggle-add" aria-label="Cerrar bloques">×</button></div>${groups.map(group => `<div class="block-library-group"><h3>${group}</h3><div class="block-library-grid">${blockLibraryItems.filter(item => item.group === group).map(item => `<button class="block-library-item" data-add="${item.type}"><span class="block-thumbnail preview-${item.preview}"><i></i><b></b><em></em><small></small></span><strong>${item.label}</strong></button>`).join('')}</div></div>`).join('')}</section>`;
 }
 
 function unitOverviewView() {
@@ -289,7 +290,7 @@ app.addEventListener('click', event => {
   if (button.dataset.subtitleAccent) { save({ ...course, subtitleAccent:button.dataset.subtitleAccent }); return; }
   const action = button.dataset.action;
   const id = button.dataset.id;
-  if (action === 'toggle-add') { menuOpen = !menuOpen; render(); }
+  if (action === 'toggle-add') { menuOpen = !menuOpen; if (menuOpen) blockPickerY = blockPickerTop(button.getBoundingClientRect().top, window.innerHeight); render(); }
   if (action === 'preview') { preview = !preview; presentationPage = preview && course.cover?.enabled ? 'cover' : 'content'; render(); }
   if (action === 'generate-cover') { save(generateCover(course)); toast('Portada creada'); }
   if (action === 'edit-cover') { if (!course.cover?.enabled) { save(generateCover(course)); } setTimeout(() => document.querySelector('#course-cover')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0); }
