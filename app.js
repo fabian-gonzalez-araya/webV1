@@ -2,7 +2,7 @@ import { addBlock, addAIDraft, addLesson, addPdfDraft, addSection, addSlideEmbed
 import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
 import { renderCourseHtml } from './export-html.js?v=20261016-scroll-image-reveal';
 import { previewDocument } from './preview-document.js?v=20261016-scroll-image-reveal';
-import { blockLibraryItems, blockPickerTop } from './block-library.js?v=20261016-library';
+import { blockLibraryItems, blockPickerTop } from './block-library.js?v=20261016-embedded-resources';
 import { createFlipbookCanvas } from './flipbook.js';
 import { brandTokens, subtitleTokens, themeTokens } from './theme.js';
 

@@ -173,6 +173,12 @@ test('offers block templates with visual previews in the right-side library', ()
   assert.ok(blockLibraryItems.some(item => item.type === 'knowledge' && item.preview === 'knowledge'));
 });
 
+test('offers embeddable resources in the visual block library', () => {
+  assert.ok(blockLibraryItems.some(item => item.type === 'iframe' && item.label === 'Iframe'));
+  assert.ok(blockLibraryItems.some(item => item.type === 'embed' && item.label === 'Video YouTube'));
+  assert.ok(blockLibraryItems.some(item => item.type === 'googleSlides' && item.label === 'Google Slides'));
+});
+
 test('positions the block library beside the active add-block control', () => {
   assert.equal(blockPickerTop(320, 900), 320);
   assert.equal(blockPickerTop(840, 900), 340);
